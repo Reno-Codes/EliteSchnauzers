@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useInView } from "react-intersection-observer";
 
 interface Image {
     src: string;
     alt: string;
+    thumbnail?: string;
 }
 
 const Gallery = () => {
@@ -17,10 +19,19 @@ const Gallery = () => {
         }
     );
     const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        // Import all images from the gallery folders
-        const loadImages = async () => {
+    // Function to generate thumbnail URL
+    const getThumbnailUrl = (originalUrl: string) => {
+        const url = new URL(originalUrl, window.location.origin);
+        url.searchParams.set("size", "thumbnail");
+        return url.toString();
+    };
+
+    // Load images progressively
+    const loadImages = useCallback(async () => {
+        setIsLoading(true);
+        try {
             const adultImages = import.meta.glob(
                 "/src/assets/gallery/adults/*"
             );
@@ -39,6 +50,7 @@ const Gallery = () => {
                 loadedAdults.push({
                     src: module.default,
                     alt: name,
+                    thumbnail: getThumbnailUrl(module.default),
                 });
             }
 
@@ -50,6 +62,7 @@ const Gallery = () => {
                 loadedPuppies.push({
                     src: module.default,
                     alt: name,
+                    thumbnail: getThumbnailUrl(module.default),
                 });
             }
 
@@ -57,10 +70,25 @@ const Gallery = () => {
                 adults: loadedAdults,
                 puppies: loadedPuppies,
             });
-        };
-
-        loadImages();
+        } catch (error) {
+            console.error("Error loading images:", error);
+        } finally {
+            setIsLoading(false);
+        }
     }, []);
+
+    useEffect(() => {
+        loadImages();
+    }, [loadImages]);
+
+    // Preload images for the active tab
+    useEffect(() => {
+        const imagesToPreload = images[activeTab];
+        imagesToPreload.forEach((image) => {
+            const img = new Image();
+            img.src = image.src;
+        });
+    }, [activeTab, images]);
 
     return (
         <div className="min-h-screen py-20">
@@ -109,31 +137,25 @@ const Gallery = () => {
                     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
                 >
                     <AnimatePresence mode="wait">
-                        {images[activeTab].map((image, index) => (
-                            <motion.div
-                                key={image.src}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{
-                                    duration: 0.3,
-                                    delay: index * 0.1,
-                                }}
-                                className="aspect-square relative rounded-lg overflow-hidden cursor-pointer group"
-                                onClick={() => setSelectedImage(image)}
-                            >
-                                <img
-                                    src={image.src}
-                                    alt={image.alt}
-                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span className="text-white text-lg font-medium">
-                                        {t("gallery.viewLarger")}
-                                    </span>
-                                </div>
-                            </motion.div>
-                        ))}
+                        {isLoading
+                            ? // Loading placeholders
+                              Array.from({ length: 8 }).map((_, index) => (
+                                  <motion.div
+                                      key={`placeholder-${index}`}
+                                      initial={{ opacity: 0.5 }}
+                                      animate={{ opacity: 1 }}
+                                      exit={{ opacity: 0 }}
+                                      className="aspect-square bg-gray-200 rounded-lg animate-pulse"
+                                  />
+                              ))
+                            : images[activeTab].map((image, index) => (
+                                  <LazyImage
+                                      key={image.src}
+                                      image={image}
+                                      index={index}
+                                      onClick={() => setSelectedImage(image)}
+                                  />
+                              ))}
                     </AnimatePresence>
                 </motion.div>
 
@@ -154,10 +176,14 @@ const Gallery = () => {
                                 src={selectedImage.src}
                                 alt={selectedImage.alt}
                                 className="max-w-full max-h-[90vh] object-contain"
+                                loading="eager"
                             />
                             <button
                                 className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors duration-200"
-                                onClick={() => setSelectedImage(null)}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedImage(null);
+                                }}
                             >
                                 <svg
                                     className="w-8 h-8"
@@ -178,6 +204,56 @@ const Gallery = () => {
                 </AnimatePresence>
             </div>
         </div>
+    );
+};
+
+// LazyImage component for progressive loading
+const LazyImage = ({
+    image,
+    index,
+    onClick,
+}: {
+    image: Image;
+    index: number;
+    onClick: () => void;
+}) => {
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    });
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+                inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+            }
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{
+                duration: 0.3,
+                delay: index * 0.1,
+            }}
+            className="aspect-square relative rounded-lg overflow-hidden cursor-pointer group"
+            onClick={onClick}
+        >
+            {inView && (
+                <>
+                    <img
+                        src={image.thumbnail || image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        loading="lazy"
+                        style={{ backgroundColor: "#f3f4f6" }}
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span className="text-white text-lg font-medium">
+                            View Larger
+                        </span>
+                    </div>
+                </>
+            )}
+        </motion.div>
     );
 };
 
