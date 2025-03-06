@@ -85,7 +85,7 @@ const Gallery = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.1 }}
+                    transition={{ duration: 0.03 }}
                     className="text-center mb-12"
                 >
                     <h1 className="text-4xl md:text-5xl font-display font-bold text-primary mb-6">
@@ -145,7 +145,7 @@ const Gallery = () => {
                                       exit={{ opacity: 0, scale: 0.9 }}
                                       transition={{
                                           duration: 0.1,
-                                          delay: index * 0.1,
+                                          delay: index * 0.03,
                                       }}
                                       className="aspect-square relative rounded-lg overflow-hidden cursor-pointer group"
                                       onClick={() => setSelectedImage(image)}
