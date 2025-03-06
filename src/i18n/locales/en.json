@@ -29,7 +29,7 @@
             }
         },
         "cta": {
-            "title": "Ready to Welcome a New Family Member?",
+            "title": "Ready to welcome a new family member?",
             "button": "Contact Us"
         }
     },
@@ -80,7 +80,7 @@
         "subtitle": "Dedicated to breeding exceptional miniature schnauzers with a focus on health, temperament, and breed standard excellence",
         "story": {
             "title": "Our Story",
-            "part1": "Since 2010, Elite Schnauzers has been dedicated to breeding exceptional miniature schnauzers. Our journey began with a deep love for the breed and a commitment to maintaining its highest standards.",
+            "part1": "Since 2023, Elite Schnauzers has been dedicated to breeding exceptional miniature schnauzers. Our journey began with a deep love for the breed and a commitment to maintaining its highest standards.",
             "part2": "We take pride in our breeding program that focuses on health, temperament, and conformity to breed standards. Each puppy is raised in our home with love and attention to ensure proper socialization."
         },
         "values": {
@@ -149,10 +149,11 @@
         "tabs": {
             "adults": "Adults",
             "puppies": "Puppies"
-        }
+        },
+        "viewLarger": "View Larger"
     },
     "footer": {
-        "description": "Breeding exceptional miniature schnauzers with love and dedication since 2010.",
+        "description": "Breeding exceptional miniature schnauzers with love and dedication since 2023.",
         "quickLinks": "Quick Links",
         "contactUs": "Contact Us",
         "rights": "All rights reserved."

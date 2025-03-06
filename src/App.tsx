@@ -6,6 +6,7 @@ import About from "./pages/About";
 import Puppies from "./pages/Puppies";
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
+import ScrollToTop from "./components/ScrollToTop";
 import emailjs from "@emailjs/browser";
 
 emailjs.init({
@@ -15,6 +16,7 @@ emailjs.init({
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <div className="flex flex-col min-h-screen bg-neutral">
                 <Navbar />
                 <main className="flex-grow">

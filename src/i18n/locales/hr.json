@@ -29,7 +29,7 @@
             }
         },
         "cta": {
-            "title": "Spremni Dočekati Novog Člana Obitelji?",
+            "title": "Jeste li spremni upoznati novog člana obitelji?",
             "button": "Kontaktirajte Nas"
         }
     },
@@ -80,7 +80,7 @@
         "subtitle": "Posvećeni uzgoju izuzetnih minijaturnih šnaucera s fokusom na zdravlje, temperament i standarde pasmine",
         "story": {
             "title": "Naša Priča",
-            "part1": "Od 2010. godine, Elite Schnauzers je posvećen uzgoju izuzetnih minijaturnih šnaucera. Naše putovanje započelo je dubokom ljubavlju prema pasmini i predanošću održavanju najviših standarda.",
+            "part1": "Od 2023. godine, Elite Schnauzers je posvećen uzgoju izuzetnih minijaturnih šnaucera. Naše putovanje započelo je dubokom ljubavlju prema pasmini i predanošću održavanju najviših standarda.",
             "part2": "Ponosimo se našim programom uzgoja koji se fokusira na zdravlje, temperament i usklađenost sa standardima pasmine. Svaki štenac odgaja se u našem domu s ljubavlju i pažnjom kako bi se osigurala pravilna socijalizacija."
         },
         "values": {
@@ -149,11 +149,12 @@
         "tabs": {
             "adults": "Odrasli",
             "puppies": "Štenci"
-        }
+        },
+        "viewLarger": "Uvećaj"
     },
 
     "footer": {
-        "description": "Uzgajamo izuzetne minijaturne šnaucere s ljubavlju i predanošću od 2010.",
+        "description": "Uzgajamo izuzetne minijaturne šnaucere s ljubavlju i predanošću od 2023.",
         "quickLinks": "Brze Poveznice",
         "contactUs": "Kontaktirajte Nas",
         "rights": "Sva prava pridržana."
