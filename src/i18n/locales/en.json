@@ -1,0 +1,160 @@
+{
+    "navigation": {
+        "home": "Home",
+        "about": "About",
+        "puppies": "Our Puppies",
+        "contact": "Contact",
+        "gallery": "Gallery"
+    },
+    "home": {
+        "hero": {
+            "title": "Welcome to Elite Schnauzers",
+            "subtitle": "Breeding exceptional miniature schnauzers with love and dedication",
+            "cta": "View Available Puppies"
+        },
+        "features": {
+            "title": "Why Choose Elite Schnauzers?",
+            "subtitle": "We are committed to breeding healthy, happy, and well-socialized puppies",
+            "health": {
+                "title": "Health Guaranteed",
+                "description": "All our puppies come with a comprehensive health guarantee and are vet-checked"
+            },
+            "bloodlines": {
+                "title": "Champion Bloodlines",
+                "description": "Our breeding program focuses on maintaining the highest quality bloodlines"
+            },
+            "support": {
+                "title": "Lifetime Support",
+                "description": "We provide ongoing support and guidance throughout your puppy's life"
+            }
+        },
+        "cta": {
+            "title": "Ready to Welcome a New Family Member?",
+            "button": "Contact Us"
+        }
+    },
+    "puppies": {
+        "title": "Available Puppies",
+        "subtitle": "Our puppies are raised with love and care, ensuring they grow into healthy and well-adjusted companions",
+        "noAvailable": {
+            "title": "No Puppies Currently Available",
+            "message": "We're expecting new puppies soon! Contact us to join our waiting list and be notified when new puppies arrive.",
+            "contact": "More information"
+        },
+        "details": {
+            "gender": "Gender",
+            "color": "Color",
+            "age": "Age",
+            "weeks": "{{count}} weeks",
+            "price": "Price",
+            "inquire": "Inquire About",
+            "male": "Male",
+            "female": "Female",
+            "colors": {
+                "black": "Black",
+                "salt": "Salt & Pepper",
+                "silver": "Silver"
+            }
+        },
+        "reservation": {
+            "title": "How to Reserve Your Puppy",
+            "steps": {
+                "contact": {
+                    "title": "Contact Us",
+                    "description": "Get in touch to discuss available puppies and your preferences"
+                },
+                "meet": {
+                    "title": "Meet & Select",
+                    "description": "Schedule a visit to meet our puppies and choose your new family member"
+                },
+                "reserve": {
+                    "title": "Reserve",
+                    "description": "Place a deposit to secure your chosen puppy"
+                }
+            },
+            "cta": "Contact Us to Reserve"
+        }
+    },
+    "about": {
+        "title": "About Elite Schnauzers",
+        "subtitle": "Dedicated to breeding exceptional miniature schnauzers with a focus on health, temperament, and breed standard excellence",
+        "story": {
+            "title": "Our Story",
+            "part1": "Since 2010, Elite Schnauzers has been dedicated to breeding exceptional miniature schnauzers. Our journey began with a deep love for the breed and a commitment to maintaining its highest standards.",
+            "part2": "We take pride in our breeding program that focuses on health, temperament, and conformity to breed standards. Each puppy is raised in our home with love and attention to ensure proper socialization."
+        },
+        "values": {
+            "title": "Our Values",
+            "health": {
+                "title": "Health First",
+                "description": "We prioritize the health of our dogs through rigorous genetic testing and veterinary care."
+            },
+            "ethical": {
+                "title": "Ethical Breeding",
+                "description": "Our breeding practices follow the highest ethical standards to ensure the well-being of our dogs."
+            },
+            "family": {
+                "title": "Family Focus",
+                "description": "We raise our puppies as family members, ensuring they are well-socialized and ready for their forever homes."
+            }
+        },
+        "certifications": {
+            "title": "Our Certifications",
+            "akc": {
+                "title": "HKS Registered",
+                "description": "HKS - Croatian Kennel Club"
+            },
+            "msca": {
+                "title": "HKS Member",
+                "description": "HKS - Croatian Kennel Club"
+            },
+            "health": {
+                "title": "Health Tested",
+                "description": "OFA Certified"
+            }
+        }
+    },
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "We'd love to hear from you! Get in touch with us about our puppies or any questions you may have.",
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "phone": "Phone",
+            "preferredPuppy": "Preferred Puppy",
+            "message": "Message",
+            "submit": "Send Message",
+            "selectPuppy": "Select a puppy",
+            "noPreference": "No preference"
+        },
+        "info": {
+            "title": "Get in Touch",
+            "address": "Address",
+            "phone": "Phone",
+            "email": "Email",
+            "location": "Location"
+        },
+        "hours": {
+            "title": "Visiting Hours",
+            "weekdays": "Monday - Saturday",
+            "saturday": "Saturday",
+            "sunday": "Sunday",
+            "byAppointment": "By appointment only",
+            "note": "Please schedule an appointment before visiting to ensure we can give you our full attention."
+        }
+    },
+    "gallery": {
+        "title": "Gallery",
+        "subtitle": "View our puppies and our family",
+        "tabs": {
+            "adults": "Adults",
+            "puppies": "Puppies"
+        }
+    },
+    "footer": {
+        "description": "Breeding exceptional miniature schnauzers with love and dedication since 2010.",
+        "quickLinks": "Quick Links",
+        "contactUs": "Contact Us",
+        "rights": "All rights reserved."
+    }
+}

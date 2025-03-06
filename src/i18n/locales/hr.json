@@ -1,0 +1,161 @@
+{
+    "navigation": {
+        "home": "Početna",
+        "about": "O nama",
+        "puppies": "Naši Štenci",
+        "contact": "Kontakt",
+        "gallery": "Galerija"
+    },
+    "home": {
+        "hero": {
+            "title": "Dobrodošli u Elite Schnauzers",
+            "subtitle": "Uzgajamo izuzetne minijaturne šnaucere s ljubavlju i predanošću",
+            "cta": "Pogledajte Dostupne Štence"
+        },
+        "features": {
+            "title": "Zašto Odabrati Elite Schnauzers?",
+            "subtitle": "Posvećeni smo uzgoju zdravih, sretnih i dobro socijaliziranih štenaca",
+            "health": {
+                "title": "Zajamčeno Zdravlje",
+                "description": "Svi naši štenci dolaze s opsežnim zdravstvenim jamstvom i veterinarskim pregledom"
+            },
+            "bloodlines": {
+                "title": "Šampionske Krvne Linije",
+                "description": "Naš program uzgoja fokusira se na održavanje najviše kvalitete krvnih linija"
+            },
+            "support": {
+                "title": "Doživotna Podrška",
+                "description": "Pružamo kontinuiranu podršku i vodstvo tijekom cijelog života vašeg štenca"
+            }
+        },
+        "cta": {
+            "title": "Spremni Dočekati Novog Člana Obitelji?",
+            "button": "Kontaktirajte Nas"
+        }
+    },
+    "puppies": {
+        "title": "Dostupni Štenci",
+        "subtitle": "Naši štenci odgajaju se s ljubavlju i pažnjom, osiguravajući da izrastu u zdrave i dobro prilagođene pratitelje",
+        "noAvailable": {
+            "title": "Trenutno nema dostupnih štenaca",
+            "message": "Uskoro očekujemo nove štence! Kontaktirajte nas da se pridružite listi čekanja i budete obaviješteni kada stignu novi štenci.",
+            "contact": "Više informacija"
+        },
+        "details": {
+            "gender": "Spol",
+            "color": "Boja",
+            "age": "Dob",
+            "weeks": "{{count}} tjedana",
+            "price": "Cijena",
+            "inquire": "Upit za",
+            "male": "Muški",
+            "female": "Ženski",
+            "colors": {
+                "black": "Crni",
+                "salt": "Sol & Papar",
+                "silver": "Srebrni"
+            }
+        },
+        "reservation": {
+            "title": "Kako Rezervirati Vašeg Štenca",
+            "steps": {
+                "contact": {
+                    "title": "Kontaktirajte Nas",
+                    "description": "Javite nam se da razgovaramo o dostupnim štencima i vašim preferencijama"
+                },
+                "meet": {
+                    "title": "Upoznajte i Odaberite",
+                    "description": "Zakažite posjet kako biste upoznali naše štence i odabrali svog novog člana obitelji"
+                },
+                "reserve": {
+                    "title": "Rezervirajte",
+                    "description": "Položite depozit za osiguranje vašeg odabranog štenca"
+                }
+            },
+            "cta": "Kontaktirajte Nas za Rezervaciju"
+        }
+    },
+    "about": {
+        "title": "O Elite Schnauzers",
+        "subtitle": "Posvećeni uzgoju izuzetnih minijaturnih šnaucera s fokusom na zdravlje, temperament i standarde pasmine",
+        "story": {
+            "title": "Naša Priča",
+            "part1": "Od 2010. godine, Elite Schnauzers je posvećen uzgoju izuzetnih minijaturnih šnaucera. Naše putovanje započelo je dubokom ljubavlju prema pasmini i predanošću održavanju najviših standarda.",
+            "part2": "Ponosimo se našim programom uzgoja koji se fokusira na zdravlje, temperament i usklađenost sa standardima pasmine. Svaki štenac odgaja se u našem domu s ljubavlju i pažnjom kako bi se osigurala pravilna socijalizacija."
+        },
+        "values": {
+            "title": "Naše Vrijednosti",
+            "health": {
+                "title": "Zdravlje na Prvom Mjestu",
+                "description": "Prioritiziramo zdravlje naših pasa kroz rigorozna genetska testiranja i veterinarsku skrb."
+            },
+            "ethical": {
+                "title": "Etički Uzgoj",
+                "description": "Naše prakse uzgoja slijede najviše etičke standarde kako bi se osigurala dobrobit naših pasa."
+            },
+            "family": {
+                "title": "Fokus na Obitelj",
+                "description": "Odgajamo naše štence kao članove obitelji, osiguravajući da su dobro socijalizirani i spremni za svoje nove domove."
+            }
+        },
+        "certifications": {
+            "title": "Naši Certifikati",
+            "akc": {
+                "title": "HKS Registrirani",
+                "description": "HKS - Hrvatski Kinološki Savez"
+            },
+            "msca": {
+                "title": "HKS Član",
+                "description": "HKS - Hrvatski Kinološki Savez"
+            },
+            "health": {
+                "title": "Zdravstveno Testirani",
+                "description": "OFA Certificirani"
+            }
+        }
+    },
+    "contact": {
+        "title": "Kontaktirajte Nas",
+        "subtitle": "Voljeli bismo čuti od vas! Javite nam se u vezi naših štenaca ili bilo kakvih pitanja koja imate.",
+        "form": {
+            "name": "Ime",
+            "email": "Email",
+            "phone": "Telefon",
+            "preferredPuppy": "Željeni Štenac",
+            "message": "Poruka",
+            "submit": "Pošalji Poruku",
+            "selectPuppy": "Odaberite štenca",
+            "noPreference": "Bez preferencije"
+        },
+        "info": {
+            "title": "Stupite u Kontakt",
+            "address": "Adresa",
+            "phone": "Telefon",
+            "email": "Email",
+            "location": "Lokacija"
+        },
+        "hours": {
+            "title": "Radno Vrijeme",
+            "weekdays": "Ponedjeljak - Subota",
+            "saturday": "Subota",
+            "sunday": "Nedjelja",
+            "byAppointment": "Samo uz dogovor",
+            "note": "Molimo zakažite termin prije posjeta kako bismo vam mogli posvetiti punu pažnju."
+        }
+    },
+    "gallery": {
+        "title": "Galerija",
+        "subtitle": "Pogledajte naše štence i našu obitelj",
+        "tabs": {
+            "adults": "Odrasli",
+            "puppies": "Štenci"
+        }
+    },
+
+    "footer": {
+        "description": "Uzgajamo izuzetne minijaturne šnaucere s ljubavlju i predanošću od 2010.",
+        "quickLinks": "Brze Poveznice",
+        "contactUs": "Kontaktirajte Nas",
+        "rights": "Sva prava pridržana."
+    }
+}
