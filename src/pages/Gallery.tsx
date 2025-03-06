@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 interface Image {
     src: string;
     alt: string;
-    cacheKey?: string;
 }
 
 const Gallery = () => {
@@ -19,13 +18,6 @@ const Gallery = () => {
     );
     const [selectedImage, setSelectedImage] = useState<Image | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-
-    // Function to add cache version to URL
-    const getVersionedUrl = (url: string) => {
-        const versionedUrl = new URL(url, window.location.origin);
-        versionedUrl.searchParams.set("v", "1"); // Cache version
-        return versionedUrl.toString();
-    };
 
     // Load images
     const loadImages = useCallback(async () => {
@@ -46,11 +38,9 @@ const Gallery = () => {
                 const fileName = path.split("/").pop() || "";
                 const name = fileName.split(".")[0];
                 const module: any = await adultImages[path]();
-                const versionedSrc = getVersionedUrl(module.default);
                 loadedAdults.push({
-                    src: versionedSrc,
+                    src: module.default,
                     alt: name,
-                    cacheKey: `adult-${name}-v1`,
                 });
             }
 
@@ -59,11 +49,9 @@ const Gallery = () => {
                 const fileName = path.split("/").pop() || "";
                 const name = fileName.split(".")[0];
                 const module: any = await puppyImages[path]();
-                const versionedSrc = getVersionedUrl(module.default);
                 loadedPuppies.push({
-                    src: versionedSrc,
+                    src: module.default,
                     alt: name,
-                    cacheKey: `puppy-${name}-v1`,
                 });
             }
 
