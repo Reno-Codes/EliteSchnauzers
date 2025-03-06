@@ -82,6 +82,12 @@ const Navbar = () => {
                         {t("navigation.about")}
                     </MobileNavLink>
                     <MobileNavLink
+                        to="/gallery"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        {t("navigation.gallery")}
+                    </MobileNavLink>
+                    <MobileNavLink
                         to="/puppies"
                         onClick={() => setIsOpen(false)}
                     >
