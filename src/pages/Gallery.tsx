@@ -1,12 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useInView } from "react-intersection-observer";
 
 interface Image {
     src: string;
     alt: string;
-    thumbnail?: string;
     cacheKey?: string;
 }
 
@@ -22,14 +20,6 @@ const Gallery = () => {
     const [selectedImage, setSelectedImage] = useState<Image | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Function to generate thumbnail URL with cache key
-    const getThumbnailUrl = (originalUrl: string) => {
-        const url = new URL(originalUrl, window.location.origin);
-        url.searchParams.set("size", "thumbnail");
-        url.searchParams.set("v", "1"); // Cache version
-        return url.toString();
-    };
-
     // Function to add cache version to URL
     const getVersionedUrl = (url: string) => {
         const versionedUrl = new URL(url, window.location.origin);
@@ -37,7 +27,7 @@ const Gallery = () => {
         return versionedUrl.toString();
     };
 
-    // Load images progressively
+    // Load images
     const loadImages = useCallback(async () => {
         setIsLoading(true);
         try {
@@ -60,7 +50,6 @@ const Gallery = () => {
                 loadedAdults.push({
                     src: versionedSrc,
                     alt: name,
-                    thumbnail: getThumbnailUrl(module.default),
                     cacheKey: `adult-${name}-v1`,
                 });
             }
@@ -74,7 +63,6 @@ const Gallery = () => {
                 loadedPuppies.push({
                     src: versionedSrc,
                     alt: name,
-                    thumbnail: getThumbnailUrl(module.default),
                     cacheKey: `puppy-${name}-v1`,
                 });
             }
@@ -94,20 +82,14 @@ const Gallery = () => {
         loadImages();
     }, [loadImages]);
 
-    // Preload images for the active tab
+    // Preload all images immediately
     useEffect(() => {
-        const imagesToPreload = images[activeTab];
-        imagesToPreload.forEach((image) => {
+        const allImages = [...images.adults, ...images.puppies];
+        allImages.forEach((image) => {
             const img = new Image();
             img.src = image.src;
-
-            // Also preload thumbnails
-            if (image.thumbnail) {
-                const thumbImg = new Image();
-                thumbImg.src = image.thumbnail;
-            }
         });
-    }, [activeTab, images]);
+    }, [images]);
 
     return (
         <div className="min-h-screen py-20">
@@ -168,12 +150,30 @@ const Gallery = () => {
                                   />
                               ))
                             : images[activeTab].map((image, index) => (
-                                  <LazyImage
+                                  <motion.div
                                       key={image.src}
-                                      image={image}
-                                      index={index}
+                                      initial={{ opacity: 0, scale: 0.9 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      exit={{ opacity: 0, scale: 0.9 }}
+                                      transition={{
+                                          duration: 0.3,
+                                          delay: index * 0.1,
+                                      }}
+                                      className="aspect-square relative rounded-lg overflow-hidden cursor-pointer group"
                                       onClick={() => setSelectedImage(image)}
-                                  />
+                                  >
+                                      <img
+                                          src={image.src}
+                                          alt={image.alt}
+                                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                          style={{ backgroundColor: "#f3f4f6" }}
+                                      />
+                                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                          <span className="text-white text-lg font-medium">
+                                              View Larger
+                                          </span>
+                                      </div>
+                                  </motion.div>
                               ))}
                     </AnimatePresence>
                 </motion.div>
@@ -195,7 +195,6 @@ const Gallery = () => {
                                 src={selectedImage.src}
                                 alt={selectedImage.alt}
                                 className="max-w-full max-h-[90vh] object-contain"
-                                loading="eager"
                             />
                             <button
                                 className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors duration-200"
@@ -223,60 +222,6 @@ const Gallery = () => {
                 </AnimatePresence>
             </div>
         </div>
-    );
-};
-
-// Update LazyImage component to handle cached images better
-const LazyImage = ({
-    image,
-    index,
-    onClick,
-}: {
-    image: Image;
-    index: number;
-    onClick: () => void;
-}) => {
-    const { ref, inView } = useInView({
-        triggerOnce: true,
-        threshold: 0.1,
-    });
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={
-                inView && isLoaded
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.9 }
-            }
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{
-                duration: 0.3,
-                delay: index * 0.1,
-            }}
-            className="aspect-square relative rounded-lg overflow-hidden cursor-pointer group"
-            onClick={onClick}
-        >
-            {inView && (
-                <>
-                    <img
-                        src={image.thumbnail || image.src}
-                        alt={image.alt}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        loading="lazy"
-                        style={{ backgroundColor: "#f3f4f6" }}
-                        onLoad={() => setIsLoaded(true)}
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span className="text-white text-lg font-medium">
-                            View Larger
-                        </span>
-                    </div>
-                </>
-            )}
-        </motion.div>
     );
 };
 
