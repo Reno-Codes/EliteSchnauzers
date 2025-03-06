@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -43,6 +43,7 @@ const Navbar = () => {
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="text-primary p-2"
+                            aria-label={isOpen ? "Close menu" : "Open menu"}
                         >
                             <svg
                                 className="h-6 w-6"
@@ -65,42 +66,51 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu */}
-            <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{
-                    opacity: isOpen ? 1 : 0,
-                    height: isOpen ? "auto" : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                className="md:hidden"
-            >
-                <div className="px-2 pt-2 pb-3 space-y-1 bg-white">
-                    <MobileNavLink to="/" onClick={() => setIsOpen(false)}>
-                        {t("navigation.home")}
-                    </MobileNavLink>
-                    <MobileNavLink to="/about" onClick={() => setIsOpen(false)}>
-                        {t("navigation.about")}
-                    </MobileNavLink>
-                    <MobileNavLink
-                        to="/gallery"
-                        onClick={() => setIsOpen(false)}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="md:hidden overflow-hidden"
+                        style={{ pointerEvents: isOpen ? "auto" : "none" }}
                     >
-                        {t("navigation.gallery")}
-                    </MobileNavLink>
-                    <MobileNavLink
-                        to="/puppies"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        {t("navigation.puppies")}
-                    </MobileNavLink>
-                    <MobileNavLink
-                        to="/contact"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        {t("navigation.contact")}
-                    </MobileNavLink>
-                </div>
-            </motion.div>
+                        <div className="px-2 pt-2 pb-3 space-y-1 bg-white">
+                            <MobileNavLink
+                                to="/"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {t("navigation.home")}
+                            </MobileNavLink>
+                            <MobileNavLink
+                                to="/about"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {t("navigation.about")}
+                            </MobileNavLink>
+                            <MobileNavLink
+                                to="/gallery"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {t("navigation.gallery")}
+                            </MobileNavLink>
+                            <MobileNavLink
+                                to="/puppies"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {t("navigation.puppies")}
+                            </MobileNavLink>
+                            <MobileNavLink
+                                to="/contact"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {t("navigation.contact")}
+                            </MobileNavLink>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 };
