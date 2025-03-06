@@ -7,6 +7,7 @@ interface Image {
     src: string;
     alt: string;
     thumbnail?: string;
+    cacheKey?: string;
 }
 
 const Gallery = () => {
@@ -21,11 +22,19 @@ const Gallery = () => {
     const [selectedImage, setSelectedImage] = useState<Image | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Function to generate thumbnail URL
+    // Function to generate thumbnail URL with cache key
     const getThumbnailUrl = (originalUrl: string) => {
         const url = new URL(originalUrl, window.location.origin);
         url.searchParams.set("size", "thumbnail");
+        url.searchParams.set("v", "1"); // Cache version
         return url.toString();
+    };
+
+    // Function to add cache version to URL
+    const getVersionedUrl = (url: string) => {
+        const versionedUrl = new URL(url, window.location.origin);
+        versionedUrl.searchParams.set("v", "1"); // Cache version
+        return versionedUrl.toString();
     };
 
     // Load images progressively
@@ -47,10 +56,12 @@ const Gallery = () => {
                 const fileName = path.split("/").pop() || "";
                 const name = fileName.split(".")[0];
                 const module: any = await adultImages[path]();
+                const versionedSrc = getVersionedUrl(module.default);
                 loadedAdults.push({
-                    src: module.default,
+                    src: versionedSrc,
                     alt: name,
                     thumbnail: getThumbnailUrl(module.default),
+                    cacheKey: `adult-${name}-v1`,
                 });
             }
 
@@ -59,10 +70,12 @@ const Gallery = () => {
                 const fileName = path.split("/").pop() || "";
                 const name = fileName.split(".")[0];
                 const module: any = await puppyImages[path]();
+                const versionedSrc = getVersionedUrl(module.default);
                 loadedPuppies.push({
-                    src: module.default,
+                    src: versionedSrc,
                     alt: name,
                     thumbnail: getThumbnailUrl(module.default),
+                    cacheKey: `puppy-${name}-v1`,
                 });
             }
 
@@ -87,6 +100,12 @@ const Gallery = () => {
         imagesToPreload.forEach((image) => {
             const img = new Image();
             img.src = image.src;
+
+            // Also preload thumbnails
+            if (image.thumbnail) {
+                const thumbImg = new Image();
+                thumbImg.src = image.thumbnail;
+            }
         });
     }, [activeTab, images]);
 
@@ -207,7 +226,7 @@ const Gallery = () => {
     );
 };
 
-// LazyImage component for progressive loading
+// Update LazyImage component to handle cached images better
 const LazyImage = ({
     image,
     index,
@@ -221,13 +240,16 @@ const LazyImage = ({
         triggerOnce: true,
         threshold: 0.1,
     });
+    const [isLoaded, setIsLoaded] = useState(false);
 
     return (
         <motion.div
             ref={ref}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={
-                inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+                inView && isLoaded
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.9 }
             }
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{
@@ -245,6 +267,7 @@ const LazyImage = ({
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                         loading="lazy"
                         style={{ backgroundColor: "#f3f4f6" }}
+                        onLoad={() => setIsLoaded(true)}
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <span className="text-white text-lg font-medium">
